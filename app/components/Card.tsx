@@ -18,5 +18,5 @@ export default function Card({
                 {amount}
             </p>
         </div>
-    )
+    );
 }
