@@ -1,11 +1,29 @@
-import Image from "next/image";
+import Navbar from "./components/Navbar";
+import Card from "./components/Card";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <h1 className="text-4xl font-bold">
-        Finance Dashboard
-      </h1>
-    </main>
+    <>
+      <Navbar />
+
+      <main className="p-10">
+        <div className="grid gap-6 md:grid-cols-3">
+          <Card
+            title="Balance"
+            amount="$12,500"
+          />
+
+          <Card
+            title="Income"
+            amount="$4,200"
+          />
+
+          <Card
+            title="Saving"
+            amount="$1,355"
+          />
+        </div>
+      </main>
+    </>
   );
 }
