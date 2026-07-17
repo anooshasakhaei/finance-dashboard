@@ -1,3 +1,4 @@
+"use client";
 
 type CardProps = {
     title: string;
@@ -9,7 +10,10 @@ export default function Card({
     amount,
 }: CardProps) {
     return (
-        <div className="rounded-xl border bg-white p-6 shadow-sm">
+        <div
+            onClick={() => console.log(title)}
+            className="rounded-xl border bg-white p-6 shadow-sm cursor-pointer shadow-sm transition hover:shadow-lg"
+        >
             <h2 className="text-gray-500">
                 {title}
             </h2>
