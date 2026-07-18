@@ -8,23 +8,28 @@ export default function Home() {
 
   const [count, setCount] = useState(0)
   const [search, setSearch] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   const cards = [
     {
       title: "Balance",
       amount: "$12,500",
+      category: "Saving",
     },
     {
       title: "Income",
       amount: "$4,200",
+      category: "Income",
     },
     {
       title: "Saving",
       amount: "$1,355",
+      category: "Saving",
     },
     {
-      title: "Investment",
+      title: "Expense",
       amount: "$8,500",
+      category: "Expense",
     }
   ];
 
@@ -33,6 +38,33 @@ export default function Home() {
       <Navbar />
 
       <main className="p-10">
+
+        <div className="mb-6 flex gap-2">
+          <button onClick={() => setSelectedCategory("All")}
+            className={
+              selectedCategory === "All"
+                ? "rounded-lg bg-blue-600 px-4 py-2 text-white"
+                : "rounded-lg bg-gray-200 px-4 py-2"
+            }>All</button>
+          <button onClick={() => setSelectedCategory("Income")}
+            className={
+              selectedCategory === "Income"
+                ? "rounded-lg bg-blue-600 px-4 py-2 text-white"
+                : "rounded-lg bg-gray-200 px-4 py-2"
+            }>Income</button>
+          <button onClick={() => setSelectedCategory("Expense")}
+            className={
+              selectedCategory === "Expense"
+                ? "rounded-lg bg-blue-600 px-4 py-2 text-white"
+                : "rounded-lg bg-gray-200 px-4 py-2"
+            }>Expense</button>
+          <button onClick={() => setSelectedCategory("Saving")}
+            className={
+              selectedCategory === "Saving"
+                ? "rounded-lg bg-blue-600 px-4 py-2 text-white"
+                : "rounded-lg bg-gray-200 px-4 py-2"
+            }>Saving</button>
+        </div>
 
         <input
           type="text"
@@ -63,6 +95,11 @@ export default function Home() {
               card.title.toLowerCase().includes(search.toLocaleLowerCase())
             )
 
+              .filter((card) =>
+                selectedCategory === 'All' ||
+                card.category === selectedCategory
+              )
+
 
               .map((card) => (
                 <Card
@@ -73,7 +110,7 @@ export default function Home() {
               ))
           }
         </div>
-      </main>
+      </main >
     </>
   );
 }
