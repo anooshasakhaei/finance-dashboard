@@ -1,7 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 
 export default function Home() {
+
+  const [count, setCount] = useState(0)
 
   const cards = [
     {
@@ -27,6 +32,20 @@ export default function Home() {
       <Navbar />
 
       <main className="p-10">
+
+        <h2 className="mb-6 text-2xl font-bold">
+          {
+            count === 0 ? 'No Click Yet'
+              : `Clicked:${count}`
+          }
+        </h2>
+
+        <button onClick={() => setCount(count + 1)}
+          className="mb-6 rounded bg-blue-600 px-4 py-2 text-white"
+        >
+          Click me
+        </button>
+
         <div className="grid gap-6 md:grid-cols-3">
           {
             cards.map((card) => (
