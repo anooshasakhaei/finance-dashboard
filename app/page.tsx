@@ -7,6 +7,7 @@ import Card from "./components/Card";
 export default function Home() {
 
   const [count, setCount] = useState(0)
+  const [search, setSearch] = useState('')
 
   const cards = [
     {
@@ -33,6 +34,16 @@ export default function Home() {
 
       <main className="p-10">
 
+        <input
+          type="text"
+          placeholder="Search transactions..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="mb-6 w-full rounded-lg border border-gray-300 px-4 py-2 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+        />
+
+
+
         <h2 className="mb-6 text-2xl font-bold">
           {
             count === 0 ? 'No Click Yet'
@@ -48,13 +59,18 @@ export default function Home() {
 
         <div className="grid gap-6 md:grid-cols-3">
           {
-            cards.map((card) => (
-              <Card
-                key={card.title}
-                title={card.title}
-                amount={card.amount}
-              />
-            ))
+            cards.filter((card) =>
+              card.title.toLowerCase().includes(search.toLocaleLowerCase())
+            )
+
+
+              .map((card) => (
+                <Card
+                  key={card.title}
+                  title={card.title}
+                  amount={card.amount}
+                />
+              ))
           }
         </div>
       </main>
