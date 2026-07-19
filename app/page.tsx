@@ -6,7 +6,7 @@ import Card from "./components/Card";
 
 export default function Home() {
 
-  const [count, setCount] = useState(0)
+
   const [search, setSearch] = useState('')
   const [selectedCategory, setSelectedCategory] = useState("All");
 
@@ -33,38 +33,44 @@ export default function Home() {
     }
   ];
 
+  const categories = [
+    "All",
+    "Income",
+    "Expense",
+    "Saving",
+  ];
+
+  const filteredCards = cards
+    .filter((card) =>
+      card.title.toLowerCase().includes(search.toLowerCase())
+    )
+    .filter(
+      (card) =>
+        selectedCategory === "All" ||
+        card.category === selectedCategory
+    );
+
   return (
     <>
       <Navbar />
 
       <main className="p-10">
 
-        <div className="mb-6 flex gap-2">
-          <button onClick={() => setSelectedCategory("All")}
-            className={
-              selectedCategory === "All"
-                ? "rounded-lg bg-blue-600 px-4 py-2 text-white"
-                : "rounded-lg bg-gray-200 px-4 py-2"
-            }>All</button>
-          <button onClick={() => setSelectedCategory("Income")}
-            className={
-              selectedCategory === "Income"
-                ? "rounded-lg bg-blue-600 px-4 py-2 text-white"
-                : "rounded-lg bg-gray-200 px-4 py-2"
-            }>Income</button>
-          <button onClick={() => setSelectedCategory("Expense")}
-            className={
-              selectedCategory === "Expense"
-                ? "rounded-lg bg-blue-600 px-4 py-2 text-white"
-                : "rounded-lg bg-gray-200 px-4 py-2"
-            }>Expense</button>
-          <button onClick={() => setSelectedCategory("Saving")}
-            className={
-              selectedCategory === "Saving"
-                ? "rounded-lg bg-blue-600 px-4 py-2 text-white"
-                : "rounded-lg bg-gray-200 px-4 py-2"
-            }>Saving</button>
-        </div>
+        {
+          categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={
+                selectedCategory === category
+                  ? "rounded-lg bg-blue-600 px-4 py-2 text-white"
+                  : "rounded-lg bg-gray-200 px-4 py-2"
+              }
+            >
+              {category}
+            </button>
+          ))
+        }
 
         <input
           type="text"
@@ -74,40 +80,24 @@ export default function Home() {
           className="mb-6 w-full rounded-lg border border-gray-300 px-4 py-2 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
         />
 
-
-
-        <h2 className="mb-6 text-2xl font-bold">
-          {
-            count === 0 ? 'No Click Yet'
-              : `Clicked:${count}`
-          }
-        </h2>
-
-        <button onClick={() => setCount(count + 1)}
-          className="mb-6 rounded bg-blue-600 px-4 py-2 text-white"
-        >
-          Click me
-        </button>
+        <p className="mb-4 text-sm text-gray-500">
+          Showing {filteredCards.length} of {cards.length} cards
+        </p>
 
         <div className="grid gap-6 md:grid-cols-3">
-          {
-            cards.filter((card) =>
-              card.title.toLowerCase().includes(search.toLocaleLowerCase())
-            )
+          {filteredCards.length === 0 && (
+            <p className="py-10 text-center text-gray-500">
+              🔍 No cards found. Try another search.
+            </p>
+          )}
+          {filteredCards.map((card) => (
+            <Card
+              key={card.title}
+              title={card.title}
+              amount={card.amount}
+            />
+          ))
 
-              .filter((card) =>
-                selectedCategory === 'All' ||
-                card.category === selectedCategory
-              )
-
-
-              .map((card) => (
-                <Card
-                  key={card.title}
-                  title={card.title}
-                  amount={card.amount}
-                />
-              ))
           }
         </div>
       </main >
