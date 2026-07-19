@@ -77,6 +77,10 @@ export default function Home() {
     setIsModalOpen(false);
   };
 
+  const handleDeleteTransaction = (id: number) => {
+    setCards(cards.filter((card) => card.id !== id))
+  }
+
   return (
     <>
       <Navbar />
@@ -177,9 +181,10 @@ export default function Home() {
           )}
           {filteredCards.map((card) => (
             <Card
-              key={card.title}
+              key={card.id}
               title={card.title}
               amount={card.amount}
+              onDelete={() => handleDeleteTransaction(card.id)}
             />
           ))
 
