@@ -81,6 +81,9 @@ export default function Home() {
     setCards(cards.filter((card) => card.id !== id))
   }
 
+  const [editingId, setEditingId] = useState<number | null>(null);
+  console.log(editingId);
+
   return (
     <>
       <Navbar />
@@ -185,6 +188,7 @@ export default function Home() {
               title={card.title}
               amount={card.amount}
               onDelete={() => handleDeleteTransaction(card.id)}
+              onEdit={() => setEditingId(card.id)}
             />
           ))
 

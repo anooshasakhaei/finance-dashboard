@@ -4,12 +4,14 @@ type CardProps = {
     title: string;
     amount: string;
     onDelete: () => void;
+    onEdit: () => void;
 };
 
 export default function Card({
     title,
     amount,
     onDelete,
+    onEdit,
 }: CardProps) {
     return (
         <div
@@ -28,6 +30,12 @@ export default function Card({
                 className="mt-4 w-full rounded-lg bg-red-500 px-4 py-2 font-medium text-white transition hover:bg-red-600 active:scale-95"
             >
                 Delete
+            </button>
+            <button
+                onClick={onEdit}
+                className="mt-2 w-full rounded-lg bg-yellow-500 px-4 py-2 text-white transition hover:bg-yellow-600"
+            >
+                Edit
             </button>
         </div>
     )
